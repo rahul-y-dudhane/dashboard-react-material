@@ -1,58 +1,17 @@
 import React from 'react';
 
 import {
+    Drawer,
     withStyles,
-    InputBase,
     SearchIcon,
-    fade
+    IconButton,
+    TextField,
+    Grid,
+    Cancel
 } from '../../constants/material-ui'
 
-import ExpandUpMenu from '../ExpandUpMenu/ExpandUpMenu';
 
 const style = theme => ({
-    search: {
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: fade(theme.palette.common.white, 0.15),
-        '&:hover': {
-            backgroundColor: fade(theme.palette.common.white, 0.25),
-        },
-        marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing.unit,
-            width: 'auto',
-            height: '75%',
-        },
-    },
-    searchIcon: {
-        width: theme.spacing.unit * 9,
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
-    inputRoot: {
-        color: 'inherit',
-        width: '100%',
-    },
-    inputInput: {
-        paddingTop: theme.spacing.unit,
-        paddingRight: theme.spacing.unit,
-        paddingBottom: theme.spacing.unit,
-        paddingLeft: theme.spacing.unit * 10,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            width: 120,
-            '&:focus': {
-                width: 200,
-            },
-        },
-    },
     grow: {
         flexGrow: 1,
     },
@@ -61,27 +20,57 @@ const style = theme => ({
         justifyContent: 'flex-end',
         width: '80%',
         alignItems: 'center'
+    },
+    margin: {
+        margin: theme.spacing.unit,
+        color: '#000000',
+    },
+    searchBar: {
+        width: '80%'
+    },
+    iconWidth: {
+        width: '10%',
+        display: 'flex'
     }
 });
 
 function SearchBar(props) {
     const { classes } = props;
+    const [open, setOpen] = React.useState(false);
+
+    function handleDrawerOpen() {
+        if (open) {
+            setOpen(false);
+        } else {
+            setOpen(true);
+        }
+    }
+
     return (
         <div className={classes.icon}>
             <div className={classes.grow} />
-            <ExpandUpMenu />
-            <div className={classes.search}>
-                <div className={classes.searchIcon}>
-                    <SearchIcon />
+            <IconButton height="75%" color="inherit"
+                aria-label="Expand more"
+                onClick={handleDrawerOpen}>
+                <SearchIcon />
+            </IconButton>
+
+            <Drawer anchor="top" variant="persistent" open={open}>
+                <div className={classes.margin}>
+                    <Grid container spacing={8} alignItems="flex-end">
+                        <Grid item className={classes.iconWidth} justify="flex-end">
+                            <SearchIcon />
+                        </Grid>
+                        <Grid item className={classes.searchBar}>
+                            <TextField id="input-with-icon-grid" label="Search" 
+                            fullWidth={true} autoFocus={true} />
+                        </Grid>
+                        <Grid item className={classes.iconWidth}>
+                            <Cancel onClick={handleDrawerOpen} />
+                        </Grid>
+                    </Grid>
                 </div>
-                <InputBase
-                    placeholder="Search…"
-                    classes={{
-                        root: classes.inputRoot,
-                        input: classes.inputInput,
-                    }}
-                />
-            </div>
+            </Drawer>
         </div>
     )
 }

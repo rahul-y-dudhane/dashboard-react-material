@@ -9,9 +9,9 @@
     "react-scripts": "2.1.3",
     "react": "16.7.0-alpha.2",
     "react-dom": "16.7.0-alpha.2",
-    "prop-types": "latest",
-    "@material-ui/icons": "latest",
-    "@material-ui/core": "latest"
+    "prop-types": "15.6.2",
+    "@material-ui/icons": "3.0.2",
+    "@material-ui/core": "3.8.3"
   },
   "scripts": {
     "start": "react-scripts start",

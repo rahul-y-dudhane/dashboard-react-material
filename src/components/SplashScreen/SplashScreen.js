@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from '../../assets/logo.svg';
 import './SplashScreen.scss';
 
-class SplashScreen extends Component {
+export default class SplashScreen extends Component {
   render() {
     return (
       <div className="App">
@@ -13,5 +13,3 @@ class SplashScreen extends Component {
     );
   }
 }
-
-export default SplashScreen;

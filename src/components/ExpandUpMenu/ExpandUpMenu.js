@@ -17,9 +17,12 @@ import {
 const style = theme => ({
 });
 
-function ExpandUpMenu(props) {
+
+
+const ExpandUpMenu = (props) => {
     const { classes } = props;
     const [open, setOpen] = React.useState(false);
+    const menuList = ['Inbox', 'Starred', 'Send email', 'Drafts'];
 
     function handleDrawerOpen() {
         if (open) {
@@ -28,11 +31,12 @@ function ExpandUpMenu(props) {
             setOpen(true);
         }
     }
-    
-    const fullList = (
+
+    const fullList = () => {
+        return(
         <div className={classes.fullList}>
             <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                { menuList.map((text, index) => (
                     <ListItem button key={text}>
                         <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                         <ListItemText primary={text} />
@@ -41,7 +45,9 @@ function ExpandUpMenu(props) {
             </List>
 
         </div>
-    );
+        )
+    };
+
     return (
         <div>
             <IconButton height="75%" color="inherit"
@@ -53,13 +59,12 @@ function ExpandUpMenu(props) {
                 <div
                     tabIndex={0}
                     role="button"
-                    onClick={handleDrawerOpen} 
-                    >
-                    {fullList}
+                    onClick={handleDrawerOpen}
+                >
+                    {fullList()}    
                 </div>
             </Drawer>
         </div>
     )
 }
-
 export default withStyles(style)(ExpandUpMenu)
