@@ -10,7 +10,50 @@ import {
     Cancel
 } from '../../constants/material-ui'
 
+/**
+ * @description Component which renders search bar icon with actions on top
+ * @param {*} param0 
+ */
+const SearchBar = ({ classes }) => {
+    const { icon, grow, iconWidth, searchBar, margin } = classes;
+    const [open, setOpen] = React.useState(false);
 
+    function handleDrawerOpen() {
+        open ? setOpen(false) : setOpen(true);
+    }
+
+    return (
+        <div className={icon}>
+            <div className={grow} />
+            <IconButton height="75%" color="inherit"
+                aria-label="Expand more"
+                onClick={handleDrawerOpen}>
+                <SearchIcon />
+            </IconButton>
+
+            <Drawer anchor="top" variant="persistent" open={open}>
+                <div className={margin}>
+                    <Grid container spacing={8} alignItems="flex-end">
+                        <Grid item className={iconWidth} justify="flex-end">
+                            <SearchIcon />
+                        </Grid>
+                        <Grid item className={searchBar}>
+                            <TextField id="input-with-icon-grid" label="Search"
+                                fullWidth={true} autoFocus={true} />
+                        </Grid>
+                        <Grid item className={iconWidth}>
+                            <Cancel onClick={handleDrawerOpen} />
+                        </Grid>
+                    </Grid>
+                </div>
+            </Drawer>
+        </div>
+    )
+}
+
+/**
+ * @description Styles applied on search bar component
+ */
 const style = theme => ({
     grow: {
         flexGrow: 1,
@@ -33,45 +76,4 @@ const style = theme => ({
         display: 'flex'
     }
 });
-
-function SearchBar(props) {
-    const { classes } = props;
-    const [open, setOpen] = React.useState(false);
-
-    function handleDrawerOpen() {
-        if (open) {
-            setOpen(false);
-        } else {
-            setOpen(true);
-        }
-    }
-
-    return (
-        <div className={classes.icon}>
-            <div className={classes.grow} />
-            <IconButton height="75%" color="inherit"
-                aria-label="Expand more"
-                onClick={handleDrawerOpen}>
-                <SearchIcon />
-            </IconButton>
-
-            <Drawer anchor="top" variant="persistent" open={open}>
-                <div className={classes.margin}>
-                    <Grid container spacing={8} alignItems="flex-end">
-                        <Grid item className={classes.iconWidth} justify="flex-end">
-                            <SearchIcon />
-                        </Grid>
-                        <Grid item className={classes.searchBar}>
-                            <TextField id="input-with-icon-grid" label="Search" 
-                            fullWidth={true} autoFocus={true} />
-                        </Grid>
-                        <Grid item className={classes.iconWidth}>
-                            <Cancel onClick={handleDrawerOpen} />
-                        </Grid>
-                    </Grid>
-                </div>
-            </Drawer>
-        </div>
-    )
-}
 export default withStyles(style)(SearchBar)

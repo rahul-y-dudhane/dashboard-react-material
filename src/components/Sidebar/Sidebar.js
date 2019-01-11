@@ -25,68 +25,48 @@ import {
   MenuIcon,
   CssBaseline,
   Grid,
-  Fullscreen,
   Notifications,
-  Hidden
+  Hidden,
+  Settings
 
 } from '../../constants/material-ui'
 import FlagList from '../FlagList/FlagList';
 import MyProfile from '../MyProfile/MyProfile';
+import FullScreenView from '../FullScreenView/FullScreenView';
 
 const drawerWidth = 240;
 
+/**
+ * @description Renders the sidebar
+ * @param {*} props 
+ */
+const Sidebar = ({ classes }) => {
 
-const Sidebar = (props) => {
+  /**
+   * @description Menu list for sidebar
+   */
   const menuList = ['Inbox', 'Starred', 'Send email', 'Drafts'];
-  const { classes } = props;
+
+  /**
+   * @description ALl style classes extracting from props.
+   */
+  const { menuButton, content, toolbar, drawerPaper, drawer, drawerOpen, drawerClose, appBar, root } = classes;
+
+  /**
+   * @description used to manage state for sidebar open-close.
+   */
   const [open, setOpen] = React.useState(true);
-  const [fullScreenFlag, setFlag] = React.useState(false);
 
+  /**
+   * @description Set sidebar state true-false according to sidebar open or closed
+   */
   function handleDrawerOpen() {
-    if (open) {
-      setOpen(false);
-    } else {
-      setOpen(true);
-    }
+    open ? setOpen(false) : setOpen(true);
   }
 
-  const toggleFullScreen = () => {
-    if (fullScreenFlag) {
-      closeFullscreen();
-      setFlag(false);
-    } else {
-      openFullscreen();
-      setFlag(true);
-    }
-
-  }
-  const openFullscreen = () => {
-    const elem = document.documentElement;
-    const { requestFullscreen, mozRequestFullScreen, webkitRequestFullscreen, msRequestFullscreen } = elem;
-    if (requestFullscreen) {
-      elem.requestFullscreen();
-    } else if (mozRequestFullScreen) { /* Firefox */
-      elem.mozRequestFullScreen();
-    } else if (webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-      elem.webkitRequestFullscreen();
-    } else if (msRequestFullscreen) { /* IE/Edge */
-      elem.msRequestFullscreen();
-    }
-  }
-
-  const closeFullscreen = () => {
-    const { exitFullscreen, mozCancelFullScreen, webkitExitFullscreen, msExitFullscreen } = document;
-    if (exitFullscreen) {
-      document.exitFullscreen();
-    } else if (mozCancelFullScreen) { /* Firefox */
-      document.mozCancelFullScreen();
-    } else if (webkitExitFullscreen) { /* Chrome, Safari and Opera */
-      document.webkitExitFullscreen();
-    } else if (msExitFullscreen) { /* IE/Edge */
-      document.msExitFullscreen();
-    }
-  }
-
+  /**
+   * @description renders menu list of sidebar
+   */
   const fullList = () => {
     return (
       <List>
@@ -99,11 +79,10 @@ const Sidebar = (props) => {
       </List>
     )
   };
-
   return (
-    <div className={classes.root}>
+    <div className={root}>
       <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
+      <AppBar position="fixed" className={appBar}>
         <Toolbar>
           <Grid container spacing={16} direction='row' alignItems='center'>
 
@@ -127,7 +106,7 @@ const Sidebar = (props) => {
                   color="inherit"
                   aria-label="Open drawer"
                   onClick={handleDrawerOpen}
-                  className={classes.menuButton}>
+                  className={menuButton}>
                   <MenuIcon />
                 </IconButton>
               </Grid>
@@ -157,10 +136,7 @@ const Sidebar = (props) => {
               </Hidden>
 
               <Grid item>
-                <IconButton height="75%" color="inherit"
-                  onClick={toggleFullScreen}>
-                  <Fullscreen />
-                </IconButton>
+                <FullScreenView />
               </Grid>
 
               <Hidden only="xs">
@@ -182,29 +158,30 @@ const Sidebar = (props) => {
               </Grid>
             </Grid>
           </Grid>
-
-
         </Toolbar>
       </AppBar>
       <Drawer
         variant="persistent"
-        className={(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
+        className={(drawer, {
+          [drawerOpen]: open,
+          [drawerClose]: !open,
         })}
         classes={{
-          paper: classes.drawerPaper,
+          paper: drawerPaper,
 
         }}
         open={open}
       >
-        <div className={classes.toolbar} />
+        <div className={toolbar} />
         {fullList()}
         <Divider />
         {fullList()}
       </Drawer>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
+      <main className={content}>
+        <div className={toolbar} />
+        <Grid className="options-icon">
+          <Settings className="App-logo1"/>
+        </Grid>
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
           ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
@@ -237,6 +214,10 @@ Sidebar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
+/**
+ * @description Styles uses for side bar component
+ * @param {*} theme 
+ */
 const styles = theme => ({
   root: {
     display: 'flex',
@@ -293,6 +274,4 @@ const styles = theme => ({
     ...theme.mixins.toolbar,
   },
 });
-
-
 export default withStyles(styles)(Sidebar);

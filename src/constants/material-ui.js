@@ -29,6 +29,14 @@ import Fade from '@material-ui/core/Fade';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import Avatar from '@material-ui/core/Avatar';
+import Tooltip from '@material-ui/core/Tooltip';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
+
+
 
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
@@ -40,10 +48,36 @@ import Fullscreen from '@material-ui/icons/Fullscreen';
 import Apps from "@material-ui/icons/Apps";
 import Notifications from '@material-ui/icons/Notifications';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import FullscreenExit from '@material-ui/icons/FullscreenExit';
+import Person from '@material-ui/icons/Person';
+import Settings from '@material-ui/icons/Settings';
+import Lock from '@material-ui/icons/Lock';
+import Help from '@material-ui/icons/Help';
+import PowerSettingsNew from '@material-ui/icons/PowerSettingsNew';
+import Send from '@material-ui/icons/Send';
+import Close from '@material-ui/icons/Close';
+
+import Fab from '@material-ui/core/Fab';
+
+
+
 
 export {
     Drawer,
+    Fab,
+    Tooltip,
+    Close,
+    Checkbox,
+    FormGroup,
+    FormControlLabel,
+    Avatar,
+    Send,
     Card,
+    Person,
+    Settings,
+    Lock,
+    Help,
+    PowerSettingsNew,
     CardActions,
     CardContent,
     ClickAwayListener,
@@ -83,5 +117,6 @@ export {
     Cancel,
     Favorite,
     Hidden,
-    Fade
+    Fade,
+    FullscreenExit
 }
